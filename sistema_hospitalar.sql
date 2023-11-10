@@ -7,9 +7,14 @@ create table hospital
 id_hospital integer primary key,
 nome_hospital varchar (30) not null,
 cpnj numeric (14) not null,
-email_hospital varchar (20) not null,
-telefone numeric (13) not null
+email_hospital varchar (50) not null,
+telefone numeric (13) not null,
+id_medico int,
+id_setor int,
+id_enfermeira int,
+plano_saude int
 );
+
 
 alter table hospital
 add constraint id_medico foreign key (id_medico) references medicos (id_medico),
@@ -22,14 +27,16 @@ insert into hospital(id_hospital, nome_hospital, cpnj, email_hospital, telefone)
 (077, 'Hospital Oswaldo Cruz', 00000000000002, 'oswaldocruz@email.com', 551197762453),
 (156, 'Hospital Sírio-Libanês', 00000000000003, 'siriolibanes@email.com', 551198952453);
 
+
 create table medicos
 (
 id_medico integer primary key,
 nome_medico varchar (100) not null,
-cpf numeric (11) not null,
+cpf bigint not null,
 telefone numeric (13) not null,
 especialidade varchar (20) not null
 );
+
 
 insert into medicos (id_medico, nome_medico, cpf, telefone, especialidade) values
 (01, 'Alan Jesus Magalhães', 23857492772, 5534974509143, 'Pediatra'),
@@ -43,7 +50,7 @@ create table enfermeiras
 (
 id_enfermeira integer primary key,
 nome_enfermeira varchar (100) not null,
-cpf numeric (11) not null,
+cpf bigint not null,
 telefone numeric (13) not null,
 cre numeric (7) not null
 );
@@ -60,7 +67,7 @@ create table paciente
 (
 id_paciente integer primary key,
 nome_paciente varchar (100) not null,
-cpf numeric (11) not null,
+cpf bigint not null,
 plano_saude varchar (30) not null,
 sintomas varchar (100) not null
 );
@@ -88,6 +95,9 @@ emergencia_B varchar (100) not null,
 pediatria_C varchar (100) not null,
 raiox_D varchar (100) not null
 );
+
+alter table setores
+add constraint id_setor foreign key (id_setor) references setores (id_setor);
 
 create table plano_saude
 (
